@@ -1,14 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:ktu_support/featurs/home/view/home_view.dart';
+import 'package:ktu_support/featurs/auth/view/auth_register_view.dart';
+
+import 'package:sizer/sizer.dart';
 
 class OtpView extends StatelessWidget {
   const OtpView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Column(
@@ -18,20 +17,24 @@ class OtpView extends StatelessWidget {
             const Text('Enter OTP'),
             SizedBox(
               height: 80,
-              width: width,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: 6,
-                itemBuilder: (context, index) {
-                  return otpFieldSingle();
-                },
+              width: 100.w,
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return otpFieldSingle();
+                  },
+                ),
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomeView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AuthRegisterView()));
               },
               child: const Text('Submit'),
             ),

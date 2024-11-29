@@ -1,74 +1,122 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final SizedBox box = SizedBox(
+      height: 1.h,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Navigate to profile
+            },
+            icon: const Icon(Icons.notifications_active),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
       body: Center(
         child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 2.w),
           physics: const BouncingScrollPhysics(),
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
+            SizedBox(
+              height: 30.h,
+              child: CarouselView(
+                itemExtent: 90.w,
+                itemSnapping: true,
+                shrinkExtent: 0.8,
+                children: List.generate(4, (index) {
+                  return Container(
+                    margin: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8.0),
+                      image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmWE4o8UVZbcFdwPRxfP67Ef2fg8ps1tLFfzIxAvH_PX0deKJgR8thAKRlizc8O474-MtBv5S6VZZTJ-YoM7T-oPIqbVaNVsCzKuRttZLtZCMwc9hw4B1zwsepfBf-Wit7C4ADmwsF02fs/s640-rw/Ktu-Online-Class-on-ASAP-ktustudents.in.png'),
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    child: const Text(
-                      'Main Courses',
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
+                    child: Center(
+                      child: Text('Item $index'),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Navigate to view all courses
-                    },
-                    child: const Text('View All'),
-                  ),
-                ],
+                  );
+                }),
               ),
             ),
+            box,
+            Text('Recent Updates',
+                style: Theme.of(context).textTheme.titleMedium),
             SizedBox(
-              height: height * 0.6,
-              width: width,
-              child: GridView.builder(
+              height: 30.h,
+              child: ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Cource $index'),
+                    subtitle: Text('Cource Details $index'),
+                    leading: CircleAvatar(
+                      child: Text('$index'),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        // Navigate to details
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios),
+                    ),
+                  );
+                },
+              ),
+            ),
+            box,
+            Text('Popular Courses',
+                style: Theme.of(context).textTheme.titleMedium),
+            SizedBox(
+              height: 50.h,
+              child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 1.5,
                 ),
-                itemCount: 4, // Number of courses
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                  return Card(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.book, size: 48.0, color: Colors.white),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          'Course ${index + 1}',
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 16.0),
+                        Flexible(
+                          child: Image.network(
+                            'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmWE4o8UVZbcFdwPRxfP67Ef2fg8ps1tLFfzIxAvH_PX0deKJgR8thAKRlizc8O474-MtBv5S6VZZTJ-YoM7T-oPIqbVaNVsCzKuRttZLtZCMwc9hw4B1zwsepfBf-Wit7C4ADmwsF02fs/s640-rw/Ktu-Online-Class-on-ASAP-ktustudents.in.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
+                        Text('Cource $index'),
+                        Text('Cource Details $index'),
                       ],
                     ),
                   );

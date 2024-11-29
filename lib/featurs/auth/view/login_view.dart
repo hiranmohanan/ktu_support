@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/constants.dart';
 import 'otp_view.dart';
 
 class LoginView extends StatelessWidget {
@@ -14,11 +15,10 @@ class LoginView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text('Enter Your Phone Number'),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              decoration: textFieldDecoration(
+                context: context,
                 hintText: 'Phone Number',
-                border: OutlineInputBorder(),
-                prefixText: '+91',
               ),
             ),
             ElevatedButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import 'featurs/auth/view/login_view.dart';
 
@@ -11,8 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginView(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return const MaterialApp(
+        home: LoginView(),
+      );
+    });
   }
 }
