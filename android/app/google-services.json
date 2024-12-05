@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "544168900081",
+    "project_id": "ktu-support",
+    "storage_bucket": "ktu-support.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544168900081:android:f4d53458e0151bcd860050",
+        "android_client_info": {
+          "package_name": "com.example.ktu_support"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwJVAeY-b1G3JpjzgssGeX8LPt0nqcWGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
