@@ -46,18 +46,24 @@ class OtpView extends StatelessWidget {
 
   otpFieldSingle() {
     return Container(
-      height: 40,
-      width: 40,
+      height: 10.w,
+      width: 10.w,
       padding: const EdgeInsets.all(2.0),
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
         borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
       ),
-      child: const TextField(
-        maxLength: 1,
-        decoration: InputDecoration(
-          counterText: '',
+      child: Center(
+        child: const TextField(
+          maxLength: 1,
+          keyboardType: TextInputType.number,
+          textAlign: TextAlign.center,
+          decoration:
+              InputDecoration(counterText: '', border: InputBorder.none),
         ),
       ),
     );

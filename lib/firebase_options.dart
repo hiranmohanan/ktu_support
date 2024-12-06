@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'ktu-support.firebasestorage.app',
     iosBundleId: 'com.example.ktuSupport',
   );
+
 }

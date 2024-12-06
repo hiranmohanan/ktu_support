@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ktu_support/constants/constants.dart';
+import 'package:ktu_support/featurs/home/models/models.dart';
+import 'package:ktu_support/services/firebase_services.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../service/view/service_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -15,7 +20,7 @@ class HomeView extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigate to profile
+              FirebaseServices().getHome();
             },
             icon: const Icon(Icons.notifications_active),
           ),
@@ -48,81 +53,81 @@ class HomeView extends StatelessWidget {
                 itemExtent: 90.w,
                 itemSnapping: true,
                 shrinkExtent: 0.8,
-                children: List.generate(4, (index) {
+                children: List.generate(demoModel.iteams.length, (index) {
                   return Container(
                     margin: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8.0),
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmWE4o8UVZbcFdwPRxfP67Ef2fg8ps1tLFfzIxAvH_PX0deKJgR8thAKRlizc8O474-MtBv5S6VZZTJ-YoM7T-oPIqbVaNVsCzKuRttZLtZCMwc9hw4B1zwsepfBf-Wit7C4ADmwsF02fs/s640-rw/Ktu-Online-Class-on-ASAP-ktustudents.in.png'),
+                      image: DecorationImage(
+                        image: NetworkImage(demoModel.iteams[index].url),
                         fit: BoxFit.contain,
                       ),
                     ),
-                    child: Center(
-                      child: Text('Item $index'),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        width: 90.w,
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Text(
+                          demoModel.iteams[index].title,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
                     ),
                   );
                 }),
               ),
             ),
             box,
-            Text('Recent Updates',
+            Text('Current Services by KTU Support',
                 style: Theme.of(context).textTheme.titleMedium),
             SizedBox(
-              height: 30.h,
+              height: 50.h,
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 10,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: demoModel.services.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text('Cource $index'),
-                    subtitle: Text('Cource Details $index'),
-                    leading: CircleAvatar(
-                      child: Text('$index'),
+                    title: Text(demoModel.services[index].title),
+                    leading: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 5.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ],
+                      ),
+                      child: demoModel.services[index].icon,
                     ),
                     trailing: IconButton(
                       onPressed: () {
-                        // Navigate to details
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ServiceView(
+                              title: demoModel.services[index].title,
+                            ),
+                          ),
+                        );
                       },
-                      icon: const Icon(Icons.arrow_forward_ios),
+                      icon: kcArrowIcon,
                     ),
                   );
                 },
               ),
             ),
             box,
-            Text('Popular Courses',
-                style: Theme.of(context).textTheme.titleMedium),
-            SizedBox(
-              height: 50.h,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.5,
-                ),
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          child: Image.network(
-                            'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmWE4o8UVZbcFdwPRxfP67Ef2fg8ps1tLFfzIxAvH_PX0deKJgR8thAKRlizc8O474-MtBv5S6VZZTJ-YoM7T-oPIqbVaNVsCzKuRttZLtZCMwc9hw4B1zwsepfBf-Wit7C4ADmwsF02fs/s640-rw/Ktu-Online-Class-on-ASAP-ktustudents.in.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Text('Cource $index'),
-                        Text('Cource Details $index'),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
           ],
         ),
       ),
